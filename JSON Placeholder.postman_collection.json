@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "efd969d9-1f8a-4281-ae58-92a9c4636adf",
+		"name": "JSON Placeholder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30438376"
+	},
+	"item": [
+		{
+			"name": "Get posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should verify status code\", () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Should verify response status\", () =>{",
+							"    pm.expect(pm.response.status).to.eql(\"OK\")",
+							"    pm.expect(pm.response.status).to.be.a(\"string\")",
+							"})",
+							"",
+							"pm.test(\"Should verify post id\", () => {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody[0].id).to.eql(1);",
+							"})",
+							"",
+							"pm.test(\"Should verify length of name\",() =>{",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody[0].name).to.have.lengthOf.at.least(10);",
+							"})",
+							"",
+							"pm.test(\"Should verify response body\", () => {",
+							"    const responseBody = pm.response.json();",
+							"    pm.expect(responseBody[0].email).to.include(\"@\");",
+							"})",
+							"",
+							"pm.test(\"Should verify all response email\", () => {",
+							"    const responseBody = pm.response.json();",
+							"    responseBody.forEach(obiekt => {",
+							"        pm.expect(obiekt.email).to.include(\"@\");",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Should verify content type response\", () => {",
+							"    pm.response.to.have.header(\"Content-Type\")",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/comments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should verify status code\", () => {\r",
+							"pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Global\", () => {\r",
+							"    console.log(pm.globals.get(\"postTitle\"))\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 13,\r\n    \"id\": 1625,\r\n    \"title\": \"testowy tutul\",\r\n    \"body\": \"moj pierwszy post\"\r\n  }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/posts",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"Ervin Howell\",\r\n    \"username\": \"Antonette\",\r\n    \"email\": \"anna@melissa.tv\",\r\n    \"address\": {\r\n      \"street\": \"Victor Plains\",\r\n      \"suite\": \"Suite 879\",\r\n      \"city\": \"Wisokyburgh\",\r\n      \"zipcode\": \"90566-7771\",\r\n      \"geo\": {\r\n        \"lat\": \"-43.9509\",\r\n        \"lng\": \"-34.4618\"\r\n      }\r\n    },\r\n    \"phone\": \"010-692-6593 x09125\",\r\n    \"website\": \"anastasia.net\",\r\n    \"company\": {\r\n      \"name\": \"Deckow-Crist\",\r\n      \"catchPhrase\": \"Proactive didactic contingency\",\r\n      \"bs\": \"synergize scalable supply-chains\"\r\n    }\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/users/2",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "YOUR BASE URL"
+		}
+	]
+}
